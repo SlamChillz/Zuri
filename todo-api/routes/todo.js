@@ -1,6 +1,10 @@
 const express = require('express');
 const TodoRouter = express.Router();
+const { validateRequest } = require('../middlewares/todo');
 const Todo = require('../controllers/todo');
+
+/* Middleware to validate requests path and methods */
+TodoRouter.use(validateRequest);
 
 TodoRouter.get('/todos', Todo.all);
 TodoRouter.post('/todo/create', Todo.create);
@@ -11,7 +15,7 @@ TodoRouter.delete('/todo/delete/:id', Todo.delete);
 
 /* Endpoint not found */
 TodoRouter.use(async (req, res, next) => {
-    const error = new Error("Not Found");
+    const error = new Error("Resource not found");
     error.status = 404;
     next(error);
 });

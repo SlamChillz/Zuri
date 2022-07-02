@@ -13,12 +13,12 @@ const DatabaseConnection = require('./config/database');
     /* Import todo route */
     const TodoRouter = require("./routes/todo");
 
-    /* todo enpoint routes */
-    app.use("/", TodoRouter);
-
-    /* home routes */
-    app.use("/", async (req, res) => {
+    /* home route */
+    app.get("/", async (req, res) => {
         res.status(200).send("Zuri todo api");
     });
+
+    /* todo enpoint routes */
+    app.use("/", TodoRouter);
   
 })(app, json, DatabaseConnection);
